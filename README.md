@@ -3,7 +3,7 @@
 
 The project is a mono repo with two top-level folders: `frontend/` and `backend/`.
 
-### Backend — Kotlin Spring Boot
+### Backend — Java Spring Boot
 
 ```
 backend/
@@ -40,6 +40,8 @@ Database credentials are configured in `app/src/main/resources/application.yml`.
 ```
 frontend/src/
   types/           — TypeScript interfaces mirroring backend DTOs
+  api/             — fetch wrapper for all backend endpoints
+  hooks/
   components/
 ```
 
@@ -61,7 +63,7 @@ Flyway runs migrations automatically on application startup.
 ## Getting Started
 
 ### Prerequisites
-- JDK 21
+- JDK 26
 - Node.js 18+
 
 ### 1. Start the database
