@@ -21,6 +21,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover, &:focus-visible {
+    background-color: palette.$tertiary;
+  }
 
   padding: $pd-sm $pd-md;
   border-radius: $border-radius-default;

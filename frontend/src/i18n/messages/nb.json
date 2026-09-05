@@ -3,6 +3,7 @@
   "app.header.subheader": "Demo",
   "sidebar.header": "Sidebar",
   "facilityList.header": "Oppdrettsanlegg",
+  "facilityDetails.back": "Tilbake",
 
   "component.loader.loading": "Laster"
 }

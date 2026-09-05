@@ -20,7 +20,7 @@ export const FacilityList: FC = () => {
                 isLoading
                     ? <Loader/>
                     : facilities.map(
-                        (facility, i) => <FacilityCard key={i} facility={facility}/>
+                        (facility) => <FacilityCard key={facility.id} facility={facility}/>
                     )
             }
         </div>
