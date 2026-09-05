@@ -1,11 +1,7 @@
-import type {Count} from '../types/count.ts'
+import type {Facility} from '../types/facilities.ts'
 
-export async function incrementCount(): Promise<Count> {
-    return genericFetch<Count>('/api/count/increment', 'Failed to increment count')
-}
-
-export async function getCurrentCount(): Promise<Count> {
-    return genericFetch<Count>('/api/count/current', 'Failed to fetch current count')
+export async function getAllFacilities(): Promise<Facility[]> {
+    return genericFetch<Facility[]>('/api/facilities/getAll', 'Failed to fetch facilities')
 }
 
 async function genericFetch<T>(url: string, customErrorMsg?: string): Promise<T> {

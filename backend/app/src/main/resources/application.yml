@@ -5,14 +5,10 @@ spring:
   application:
     name: pisces
   datasource:
-    url: jdbc:h2:file:./data/pisces
+    url: jdbc:h2:file:./data/pisces;AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password:
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: validate
   flyway:
     enabled: true
     locations: classpath:db/migration

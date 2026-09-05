@@ -2,5 +2,7 @@
   "app.name": "Pisces",
   "app.header.subheader": "Demo",
   "sidebar.header": "Sidebar",
-  "facilityList.header": "Oppdrettsanlegg"
+  "facilityList.header": "Oppdrettsanlegg",
+
+  "component.loader.loading": "Laster"
 }
