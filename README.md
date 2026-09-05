@@ -45,13 +45,13 @@ frontend/src/
   components/
 ```
 
-- **Framework:** React 19
+- **Framework:** React 18
 - **Language:** TypeScript
-- **State management:** React providers/context
+- **State management:** TanStack Query (server state), React providers/context (UI state)
 - **Build tool:** Vite
 - **Dev proxy:** `/api` requests are proxied to `http://localhost:8080` — configured in `frontend/vite.config.ts`
 
-Follow this guide to set up React 19 with Vite and TypeScript: https://www.robinwieruch.de/vite-typescript/
+Follow this guide to set up React 18 with Vite and TypeScript: https://www.robinwieruch.de/vite-typescript/
 ### Database
 
 H2 (embedded), running in-process with the backend so that no separate container is needed. 

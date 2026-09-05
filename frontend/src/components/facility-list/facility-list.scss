@@ -1,0 +1,24 @@
+@use '../../styles/padding' as *;
+@use '../../styles/palette' as palette;
+
+.pisces-facility-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  max-width: 60vw;
+  height: 100%;
+}
+
+.pisces-facility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.pisces-facility-card {
+  padding: $pd-sm $pd-md;
+  border-radius: $border-radius-default;
+  border: 1px solid palette.$primary;
+}

@@ -1,0 +1,23 @@
+@use '../../styles/padding' as padding;
+@use '../../styles/palette' as palette;
+
+.pisces-layout {
+    display: flex;
+    flex: 1;
+}
+
+.pisces-header {
+    background: palette.$secondary;
+    padding: padding.$pd-lg;
+}
+
+.pisces-sidebar {
+    width: 10vw;
+    flex-shrink: 0;
+    background: palette.$tertiary;
+}
+
+.pisces-main {
+    margin: padding.$mg-md;
+    flex: 1;
+}
