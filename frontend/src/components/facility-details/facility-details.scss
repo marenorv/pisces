@@ -1,0 +1,19 @@
+@use '../../styles/palette' as palette;
+@use '../../styles/padding' as padding;
+
+.pisces-back-link {
+  color: palette.$secondary;
+  text-decoration: none;
+  display: inline-block;
+  padding-top: padding.$pd-md;
+
+  &:hover, &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+summary.pisces-organizations {
+  &:hover, &:focus-visible {
+    text-decoration: underline;
+  }
+}

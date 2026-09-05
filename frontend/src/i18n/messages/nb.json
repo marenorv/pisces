@@ -1,9 +1,13 @@
 {
   "app.name": "Pisces",
+  "app.name.ipa": "[ˈpɪs.keːs]",
   "app.header.subheader": "Demo",
   "sidebar.header": "Sidebar",
   "facilityList.header": "Oppdrettsanlegg",
-  "facilityDetails.back": "Tilbake",
+  "facilityDetails.back": "Tilbake til anlegg",
+  "facilityDetails.notFound": "Kunne ikke finne anlegg",
+  "facilityDetails.org.header": "Oppdrettsorganisasjoner på anlegget",
+  "facilityDetails.org.noOrgs": "Ingen organisasjoner på anlegget",
 
   "component.loader.loading": "Laster"
 }
