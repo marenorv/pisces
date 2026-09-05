@@ -18,6 +18,10 @@
 }
 
 .pisces-facility-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
   padding: $pd-sm $pd-md;
   border-radius: $border-radius-default;
   border: 1px solid palette.$primary;

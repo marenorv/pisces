@@ -18,7 +18,7 @@ public class FacilityRepository {
 
     public List<Facility> getAll() {
         return jdbcClient.sql("SELECT * FROM facilities")
-                .query((rs, rowNum) -> new Facility(rs.getLong("id"), rs.getString("name")))
+                .query((rs, rowNum) -> new Facility(rs.getLong("id"), rs.getString("name"), rs.getDate("registered_date").toLocalDate()))
                 .list();
     }
 }
