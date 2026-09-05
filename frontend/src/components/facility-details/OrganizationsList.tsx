@@ -11,7 +11,7 @@ export const OrganizationsList: FC<OrganizationsListProps> = (props) => {
 
     const getOrgList = () => {
         if (props.organizations.length === 0) {
-            return <p>{formatMessage({id: 'facilityDetails.org.noOrgs'})}</p>
+            return <p>{formatMessage({id: 'facilityDetails.orgList.noOrgs'})}</p>
         }
         return <ul>
             {props.organizations.map((org, i) => (
@@ -22,7 +22,7 @@ export const OrganizationsList: FC<OrganizationsListProps> = (props) => {
 
     return (
         <details className="pisces-organizations" open>
-            <summary>{formatMessage({id: 'facilityDetails.org.header'})}</summary>
+            <summary>{formatMessage({id: 'facilityDetails.orgList.header'})}</summary>
             {getOrgList()}
         </details>
     )

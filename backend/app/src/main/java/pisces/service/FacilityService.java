@@ -1,7 +1,8 @@
 package pisces.service;
 
 import org.springframework.stereotype.Service;
-import pisces.dto.FacilityDTO;
+import pisces.dto.FacilityDetailsDTO;
+import pisces.dto.FacilityOverviewDTO;
 import pisces.repository.FacilityRepository;
 
 import java.util.List;
@@ -15,11 +16,11 @@ public class FacilityService {
         this.facilityRepository = facilityRepository;
     }
 
-    public List<FacilityDTO> getAll() {
+    public List<FacilityOverviewDTO> getAll() {
         return facilityRepository.getAll();
     }
 
-    public FacilityDTO getById(UUID id) {
+    public FacilityDetailsDTO getById(UUID id) {
         return facilityRepository.getById(id);
     }
 }
