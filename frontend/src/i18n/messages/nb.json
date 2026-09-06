@@ -3,7 +3,7 @@
   "app.name.ipa": "[ˈpɪs.keːs]",
   "app.header.subheader": "Demo",
   "sidebar.header": "Sidebar",
-  "facilityList.header": "Oppdrettsanlegg",
+  "facilityList.header": "Alle oppdrettsanlegg",
   "facilityDetails.back": "Alle anlegg",
   "facilityDetails.notFound": "Kunne ikke finne anlegg",
   "facilityDetails.name": "Navn",
