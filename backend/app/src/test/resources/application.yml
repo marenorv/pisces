@@ -1,0 +1,11 @@
+# Test-only config: run against a throwaway in-memory database so the IT never
+# touches the dev ./data/pisces file. Flyway migrates this schema on startup.
+spring:
+  datasource:
+    url: jdbc:h2:mem:pisces;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
