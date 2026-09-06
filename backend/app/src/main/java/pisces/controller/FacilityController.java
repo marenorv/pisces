@@ -1,5 +1,6 @@
 package pisces.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pisces.dto.FacilityDetailsDTO;
@@ -30,12 +31,12 @@ public class FacilityController {
     }
 
     @PutMapping("/{id}/update")
-    public FacilityDetailsDTO updateFacility(@RequestBody FacilityUpdateDTO payload) {
+    public FacilityDetailsDTO updateFacility(@Valid @RequestBody FacilityUpdateDTO payload) {
         return facilityService.updateFacility(payload);
     }
 
     @PostMapping("/add")
-    public FacilityDetailsDTO addFacility(@RequestBody FacilityUpdateDTO payload) {
+    public FacilityDetailsDTO addFacility(@Valid @RequestBody FacilityUpdateDTO payload) {
         return facilityService.addFacility(payload);
     }
 
