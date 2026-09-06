@@ -10,6 +10,7 @@ import {LANGUAGE_LABEL} from "@constants/language.ts";
 
 export const FacilityDetails: FC = () => {
     const formatMessage = useIntl().formatMessage;
+    const formatDate = useIntl().formatDate;
     const {id} = useParams<{ id: string }>();
 
     const {data: facility = null, isLoading, isError} = useQuery({
@@ -30,6 +31,7 @@ export const FacilityDetails: FC = () => {
         <Link className='pisces-back-link' to='/'>{formatMessage({id: 'facilityDetails.back'})}</Link>
         <h2>{facility.name}</h2>
         <p>{formatMessage({id: 'facilityDetails.location'})}: {facility.location[LANGUAGE_LABEL]}</p>
+        <p>{formatMessage({id: 'facilityDetails.registeredDate'})}: {formatDate(facility.registeredDate)}</p>
         <FishList fishes={facility.fishes}/>
         <OrganizationsList organizations={facility.organizations}/>
     </div>

@@ -2,13 +2,10 @@ import type {FC} from 'react';
 import type {Facility} from "@type/facilities.ts";
 import {useIntl} from "react-intl";
 import {Link} from "react-router-dom";
+import {parseDate} from "@utils/parsers.ts";
 
 interface FacilityCardProps {
     facility: Facility;
-}
-
-const parseDate = (candidate: string): Date => {
-    return new Date(candidate);
 }
 
 const LOCATION_ICONS: Record<string, string> = {
