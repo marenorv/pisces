@@ -1,3 +1,4 @@
 @import '../components/layout/layout.scss';
 @import '../components/facility-list/facility-list.scss';
 @import '../components/facility-details/facility-details.scss';
+@import '../components/facility-edit/facility-edit.scss';

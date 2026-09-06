@@ -1,0 +1,55 @@
+@use '../../styles/palette' as palette;
+@use '../../styles/padding' as padding;
+
+.pisces-facility-edit {
+  display: flex;
+  flex-direction: column;
+  max-width: 50vw;
+}
+
+.pisces-facility-edit-fields {
+  margin-bottom: padding.$mg-xl;
+}
+
+.pisces-facility-edit-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.pisces-facility-edit-header {
+  margin: 0 0 padding.$mg-md 0;
+}
+
+.pisces-edit-options {
+  border: 1px solid palette.$tertiary;
+  border-radius: padding.$border-radius-default;
+  padding: padding.$pd-md;
+  margin: 0;
+}
+
+.pisces-edit-options-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 12rem;
+  overflow-y: auto;
+
+  li {
+    padding: padding.$pd-xs 0;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: padding.$pd-sm;
+  }
+}
+
+.pisces-facility-edit-error {
+  // Always rendered so the field keeps the same height and doesn't bounce up and down when error appears/disappears.
+  margin: 0;
+  min-height: 1.25rem;
+  line-height: 1.25rem;
+  font-size: 0.875rem;
+  color: red;
+}
