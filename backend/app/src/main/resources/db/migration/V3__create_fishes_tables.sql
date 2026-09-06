@@ -8,6 +8,13 @@ INSERT INTO Fishes (id, nb_label, en_label) VALUES ('70fe52f0-b646-4b7f-9d38-564
 INSERT INTO Fishes (id, nb_label, en_label) VALUES ('027133d9-94ab-4d70-8b59-cb0290d450a4', 'Torsk', 'Cod');
 INSERT INTO Fishes (id, nb_label, en_label) VALUES ('b28b8016-c1c3-40b6-baa7-6d46c82af390', 'Laks', 'Salmon');
 INSERT INTO Fishes (id, nb_label, en_label) VALUES ('7c39419c-056b-4515-b15f-3cdd99b6c25f', 'Ørret', 'Trout');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('7acbc884-e686-4f0a-acad-fc0b7c6bed53', 'Makrell', 'Mackerel');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('73de91f6-b062-4a9e-837a-f047274e55bd', 'Gjedde', 'pike');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('95668c8f-5937-43c7-9d32-f44f1d334970', 'Murene', 'Moray');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('417e8659-e20f-4f56-9591-78ec2b8af7dd', 'Sild', 'Herring');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('cdaaced5-216e-4deb-a8d8-84316658e3d8', 'Småsild', 'Yawling');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('09f20926-115b-46db-9656-5d783d6fcd86', 'Uer', 'Red-fish');
+INSERT INTO Fishes (id, nb_label, en_label) VALUES ('341e8b47-6dcc-4f57-8e04-fa1af8a0d07f', 'Ål', 'Eel');
 
 CREATE TABLE Facility_Fishes (
     id UUID NOT NULL DEFAULT RANDOM_UUID() PRIMARY KEY,
