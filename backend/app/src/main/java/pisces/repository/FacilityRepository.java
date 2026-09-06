@@ -2,16 +2,19 @@ package pisces.repository;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pisces.domain.Fish;
 import pisces.domain.Location;
 import pisces.domain.Organization;
 import pisces.dto.FacilityDetailsDTO;
 import pisces.dto.FacilityOverviewDTO;
+import pisces.dto.FacilityUpdateDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Repository
@@ -87,6 +90,71 @@ public class FacilityRepository {
                 .list();
     }
 
+    @Transactional
+    public FacilityDetailsDTO updateFacility(FacilityUpdateDTO payload) {
+        UUID id = payload.id();
+
+        int updated = jdbcClient.sql("""
+                        UPDATE Facilities
+                        SET name = :name,
+                            registered_date = :registeredDate,
+                            location_id = :locationId
+                        WHERE id = :id
+                        """)
+                .param("id", id)
+                .param("name", payload.name())
+                .param("registeredDate", payload.registeredDate())
+                .param("locationId", payload.location())
+                .update();
+
+        if (updated == 0) {
+            throw new NoSuchElementException("No facility with id " + id);
+        }
+
+        replaceOrganizationsForFacility(id, payload.organizations());
+        replaceFishesForFacility(id, payload.fishes());
+
+        return getById(id);
+    }
+
+    private void replaceOrganizationsForFacility(UUID facilityId, List<UUID> organizationIds) {
+        jdbcClient.sql("DELETE FROM Facility_Organizations WHERE facility_id = :id")
+                .param("id", facilityId)
+                .update();
+
+        if (organizationIds == null) {
+            return;
+        }
+        for (UUID orgId : organizationIds) {
+            jdbcClient.sql("""
+                            INSERT INTO Facility_Organizations (facility_id, organization_id)
+                            VALUES (:facilityId, :organizationId)
+                            """)
+                    .param("facilityId", facilityId)
+                    .param("organizationId", orgId)
+                    .update();
+        }
+    }
+
+    private void replaceFishesForFacility(UUID facilityId, List<UUID> fishIds) {
+        jdbcClient.sql("DELETE FROM Facility_Fishes WHERE facility_id = :id")
+                .param("id", facilityId)
+                .update();
+
+        if (fishIds == null) {
+            return;
+        }
+        for (UUID fishId : fishIds) {
+            jdbcClient.sql("""
+                            INSERT INTO Facility_Fishes (facility_id, fishes_id)
+                            VALUES (:facilityId, :fishesId)
+                            """)
+                    .param("facilityId", facilityId)
+                    .param("fishesId", fishId)
+                    .update();
+        }
+    }
+
     private static Location mapLocation(ResultSet rs) throws SQLException {
         return new Location(
                 rs.getObject("location_id", UUID.class),
@@ -94,5 +162,4 @@ public class FacilityRepository {
                 rs.getString("location_en_label")
         );
     }
-
 }

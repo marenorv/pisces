@@ -19,6 +19,7 @@
 
   "facilityEdit.save": "Lagre",
   "facilityEdit.cancel": "Avbryt",
+  "facilityEdit.saveFailed": "Kunne ikke lagre anlegget. Prøv igjen.",
 
   "component.loader.loading": "Laster"
 }

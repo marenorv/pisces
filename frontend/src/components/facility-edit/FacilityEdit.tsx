@@ -1,4 +1,5 @@
 import type {FC} from "react";
+import {useState} from "react";
 import type {FieldError} from "react-hook-form";
 import {useForm} from "react-hook-form";
 import {useIntl} from "react-intl";
@@ -10,19 +11,13 @@ import {EditError} from "@components/common/EditErrors.tsx";
 import {EditFishes} from "@components/facility-edit/EditFishes.tsx";
 import {EditOrganizations} from "@components/facility-edit/EditOrganizations.tsx";
 import type {Fish} from "@type/facilities.ts";
-
-interface FacilityFormValues {
-    name: string;
-    location: string;
-    registeredDate: string;
-    fishes: string[];
-    organizations: string[];
-}
+import type {FacilityFormValues} from "@type/form.ts";
 
 export const FacilityEdit: FC = () => {
     const formatMessage = useIntl().formatMessage;
     const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const [submitFailed, setSubmitFailed] = useState(false);
 
     const {data: facility = null, isLoading, isError} = useQuery({
         queryKey: ["facility", id],
@@ -35,44 +30,22 @@ export const FacilityEdit: FC = () => {
 
     // TODO Replace with API endpoint
     const allFishes: Fish[] = [
-        {id: '1', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '2', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '3', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '4', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
-        {id: '5', nbLabel: 'Torsk', 'enLabel': 'Cod'},
+        {id: '70fe52f0-b646-4b7f-9d38-564f29153797', nbLabel: 'Gullfisk', 'enLabel': 'Goldfish'},
+        {id: '027133d9-94ab-4d70-8b59-cb0290d450a4', nbLabel: 'Torsk', 'enLabel': 'Cod'},
+        {id: 'b28b8016-c1c3-40b6-baa7-6d46c82af390', nbLabel: 'Laks', 'enLabel': 'Salmon'},
+        {id: '7c39419c-056b-4515-b15f-3cdd99b6c25f', nbLabel: 'Ørret', 'enLabel': 'Trout'},
     ]
 
-    const allOrgs= [
-        'Org 1',
-        'Org 2',
-        'Org 3',
-        'Org 4',
-        'Org 5',
-        'Org 6',
-        'Org 7',
-        'Org 8',
-        'Org 9',
-        'Org 10',
-        'Org 10',
-        'Org 10',
-        'Org 10',
-        'Org 10',
-        'Org 10',
-        'Org 10',
+    const allOrgs = [
+        {id: '202f1bbb-15d1-46aa-bc83-1d14bfcc3639', name: 'Oppdrettsorganisasjon #1'},
+        {id: '1ed9c333-dd05-44a8-ae57-1dc5eb585614', name: 'Oppdrettsorganisasjon #2'},
+        {id: '62af5c96-3eb2-4aa3-81e1-ee9d014ad40f', name: 'Oppdrettsorganisasjon #3'},
     ];
 
     const {register, handleSubmit, trigger, formState: {isDirty, errors}} = useForm<FacilityFormValues>({
         // Prefill once the facility has loaded; `values` re-syncs the form when it arrives.
         values: facility ? {
+            id: facility.id,
             name: facility.name,
             location: facility.location.id,
             registeredDate: facility.registeredDate.slice(0, 10),
@@ -91,17 +64,23 @@ export const FacilityEdit: FC = () => {
         return <p>{formatMessage({id: 'facilityDetails.notFound'})}</p>
     }
 
-    const onSubmit = (values: FacilityFormValues) => {
-        // TODO: no update endpoint on the backend yet — wire to api.updateFacility once it exists.
-        console.log('submit facility', facility.id, values);
-        navigate(`/facilities/${facility.id}`);
+    const onSubmit = async (values: FacilityFormValues) => {
+        if (!id) throw new Error('Can\'t submit without an ID');
+        try {
+            setSubmitFailed(false);
+            await api.updateFacility(id, values);
+            navigate(`/facilities/${facility.id}`);
+        } catch {
+            setSubmitFailed(true);
+        }
     };
 
     const selectOpts = [
-        {label: '1', value: '1'},
-        {label: '2', value: '2'},
+        {label: 'Land', value: '4e6f9c21-3b7a-4d18-9f2e-5c8a1b0d7e34'},
+        {label: 'Sjø', value: 'a1b2c3d4-e5f6-4789-8abc-def012345678'},
     ]
-    return <form className='pisces-facility-edit' onSubmit={handleSubmit(onSubmit)}>
+    return <>
+    <form className='pisces-facility-edit' onSubmit={handleSubmit(onSubmit)}>
         <div className={'pisces-facility-edit-fields'}>
             {/* Name */}
             <div className='pisces-facility-edit-field'>
@@ -175,4 +154,10 @@ export const FacilityEdit: FC = () => {
             </button>
         </div>
     </form>
+    {submitFailed && (
+        <p className='pisces-facility-edit-submit-error' role='alert'>
+            {formatMessage({id: 'facilityEdit.saveFailed'})}
+        </p>
+    )}
+    </>
 }

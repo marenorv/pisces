@@ -16,7 +16,7 @@ export const EditFishes: FC<EditFishesProps> = ({fishes, registration, error}) =
 
     return (
         <>
-            <fieldset className='pisces-edit-options'>
+            <fieldset className={`pisces-edit-options-item${error ? '-error' : ''}`}>
                 <h3 className={'pisces-facility-edit-header'}>
                     <label htmlFor='facility-registered-date'>{formatMessage({id: 'facilityDetails.fishes'})}</label>
                 </h3>

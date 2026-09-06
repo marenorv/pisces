@@ -1,11 +1,9 @@
 package pisces.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pisces.dto.FacilityDetailsDTO;
 import pisces.dto.FacilityOverviewDTO;
+import pisces.dto.FacilityUpdateDTO;
 import pisces.service.FacilityService;
 
 import java.util.List;
@@ -28,5 +26,10 @@ public class FacilityController {
     @GetMapping("/id/{id}")
     public FacilityDetailsDTO getById(@PathVariable UUID id) {
         return facilityService.getById(id);
+    }
+
+    @PutMapping("/id/{id}/update")
+    public FacilityDetailsDTO updateFacility(@RequestBody FacilityUpdateDTO payload) {
+        return facilityService.updateFacility(payload);
     }
 }

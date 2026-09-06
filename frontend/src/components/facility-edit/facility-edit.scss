@@ -53,3 +53,17 @@
   font-size: 0.875rem;
   color: red;
 }
+
+.pisces-facility-edit-submit-error {
+  margin: padding.$mg-md 0 0 0;
+  color: red;
+}
+
+.pisces-edit-options-item {
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
+.pisces-edit-options-item-error {
+  border: 1px solid red;
+}
