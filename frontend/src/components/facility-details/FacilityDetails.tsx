@@ -1,7 +1,7 @@
 import {type FC, useState} from "react";
 import {useIntl} from "react-intl";
 import {useQuery} from "@tanstack/react-query";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import * as api from "@api";
 import {Loader} from "@components/common/Loader.tsx";
 import {OrganizationsList} from "@components/facility-details/OrganizationsList.tsx";
@@ -31,7 +31,6 @@ export const FacilityDetails: FC = () => {
     }
 
     return <div className='pisces-facility-details'>
-        <Link className='pisces-back-link' to='/'>{formatMessage({id: 'facilityDetails.back'})}</Link>
         <div className='pisces-details-header'>
             <h2>{facility.name}</h2>
             <div className='pisces-actions__buttons'>

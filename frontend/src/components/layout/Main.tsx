@@ -3,10 +3,12 @@ import {FacilityList} from "@components/facility-list/FacilityList.tsx";
 import {FacilityDetails} from "@components/facility-details/FacilityDetails.tsx";
 import {EditFacility} from "@components/facility-form/modes/edit/EditFacility.tsx";
 import {AddFacility} from "@components/facility-form/modes/add/AddFacility.tsx";
+import {BreadCrumbs} from "@components/common/Breadcrumbs.tsx";
 
 export const Main = () => {
     return (
         <div className='pisces-main'>
+            <BreadCrumbs />
             <Routes>
                 <Route path='/' element={<Navigate to='/facilities' replace/>}/>
                 <Route path='/facilities' element={<FacilityList/>}/>

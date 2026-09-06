@@ -4,7 +4,7 @@
   "app.header.subheader": "Demo",
   "sidebar.header": "Sidebar",
   "facilityList.header": "Oppdrettsanlegg",
-  "facilityDetails.back": "Tilbake til anlegg",
+  "facilityDetails.back": "Alle anlegg",
   "facilityDetails.notFound": "Kunne ikke finne anlegg",
   "facilityDetails.name": "Navn",
   "facilityDetails.location": "Plassering av anlegg",
@@ -15,6 +15,8 @@
   "facilityDetails.fishes": "Fiskearter på anlegget",
   "facilityDetails.fishList.header": "Fiskearter på anlegget",
   "facilityDetails.fishList.noFish": "Ingen fiskearter på anlegget",
+  "facilityDetails.edit.header": "Endre anlegg {name}",
+  "facilityDetails.new.header": "Legg til nytt anlegg",
   "facilityDetails.edit": "Endre anlegg",
   "facilityDetails.delete": "Slett anlegg",
 

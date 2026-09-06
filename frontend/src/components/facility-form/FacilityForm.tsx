@@ -82,7 +82,12 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
         }
     };
 
+    const headerLabel = mode === 'new'
+        ? formatMessage({id: 'facilityDetails.new.header'})
+        : formatMessage({id: 'facilityDetails.edit.header'}, {name: <i>{facility?.name}</i>})
+
     return <>
+        <h2>{headerLabel}</h2>
         <form
             className='pisces-facility-edit'
             onSubmit={handleSubmit(mode === 'new' ? submitNew : submitExisting)}
