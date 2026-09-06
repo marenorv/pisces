@@ -1,12 +1,11 @@
 import type {FC} from "react";
 import type {FieldError, UseFormRegisterReturn} from "react-hook-form";
-import type {Fish} from "@type/facilities";
 import {useIntl} from "react-intl";
-import {LANGUAGE_LABEL} from "@constants/language.ts";
 import {EditError} from "@components/common/EditErrors.tsx";
+import type {SelectOptions} from "@type/options.ts";
 
 interface EditFishesProps {
-    fishes: Fish[];
+    fishes: SelectOptions[];
     registration: UseFormRegisterReturn;
     error?: FieldError;
 }
@@ -16,16 +15,16 @@ export const EditFishes: FC<EditFishesProps> = ({fishes, registration, error}) =
 
     return (
         <>
+            <h3 className={'pisces-facility-edit-header'}>
+                <label htmlFor='facility-registered-date'>{formatMessage({id: 'facilityDetails.fishes'})}</label>
+            </h3>
             <fieldset className={`pisces-edit-options-item${error ? '-error' : ''}`}>
-                <h3 className={'pisces-facility-edit-header'}>
-                    <label htmlFor='facility-registered-date'>{formatMessage({id: 'facilityDetails.fishes'})}</label>
-                </h3>
                 <ul className='pisces-edit-options-list'>
                     {fishes.map((fish) => (
-                        <li key={fish.id}>
+                        <li key={fish.value}>
                             <label>
-                                <input type='checkbox' value={fish.id} {...registration}/>
-                                {fish[LANGUAGE_LABEL]}
+                                <input type='checkbox' value={fish.value} {...registration}/>
+                                {fish.label}
                             </label>
                         </li>
                     ))}

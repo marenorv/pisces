@@ -1,4 +1,4 @@
-import type {Facility} from '../types/facilities.ts'
+import type {Facility, Fish, Location, Organization} from '../types/facilities.ts'
 import type {FacilityFormValues} from "@type/form.ts";
 
 export async function getAllFacilities(): Promise<Facility[]> {
@@ -7,6 +7,18 @@ export async function getAllFacilities(): Promise<Facility[]> {
 
 export async function getFacilityById(id: string): Promise<Facility> {
     return genericFetch<Facility>(`/api/facilities/id/${id}`, `Failed to fetch facility with id ${id}`)
+}
+
+export async function getLocationsOpts(): Promise<Location[]> {
+    return genericFetch<Location[]>(`/api/options/locations`, `Failed to fetch options for locations`)
+}
+
+export async function getFishesOpts(): Promise<Fish[]> {
+    return genericFetch<Fish[]>(`/api/options/fishes`, `Failed to fetch options for fishes`)
+}
+
+export async function getOrganizationsOpts(): Promise<Organization[]> {
+    return genericFetch<Organization[]>(`/api/options/organizations`, `Failed to fetch options for organizations`)
 }
 
 export async function updateFacility(id: string, values: FacilityFormValues): Promise<Facility> {

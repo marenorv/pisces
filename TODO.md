@@ -22,3 +22,4 @@
 - Pagination hvis veldig mange anlegg
 - React 19: use/useActionState https://dev.to/rakhee/can-react-v19-replace-react-querytanstack-5gmh
 - Verktøy-fane for å kunne legge til forhåndsdefinerte anlegg og fisketyper
+- Refactor EditOrganizations and EditFishes
