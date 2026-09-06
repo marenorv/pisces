@@ -34,6 +34,11 @@ public class FacilityController {
         return facilityService.updateFacility(payload);
     }
 
+    @PostMapping("/add")
+    public FacilityDetailsDTO addFacility(@RequestBody FacilityUpdateDTO payload) {
+        return facilityService.addFacility(payload);
+    }
+
     @DeleteMapping("/{id}/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFacility(@PathVariable UUID id) {

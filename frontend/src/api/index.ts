@@ -29,6 +29,14 @@ export async function deleteFacility(id: string): Promise<void> {
     )
 }
 
+export async function addNewFacility(values: FacilityFormValues): Promise<Facility> {
+    return genericFetch<Facility>(
+        `/api/facilities/add`,
+        `Failed to add new facility`,
+        'POST',
+        values,
+    )
+}
 export async function updateFacility(id: string, values: FacilityFormValues): Promise<Facility> {
     return genericFetch<Facility>(
         `/api/facilities/${id}/update`,

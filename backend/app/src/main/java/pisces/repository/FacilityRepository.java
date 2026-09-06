@@ -1,6 +1,7 @@
 package pisces.repository;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pisces.domain.Fish;
@@ -118,6 +119,26 @@ public class FacilityRepository {
     }
 
     @Transactional
+    public FacilityDetailsDTO addFacility(FacilityUpdateDTO payload) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcClient.sql("""
+          INSERT INTO Facilities (name, registered_date, location_id)
+          VALUES (:name, :registeredDate, :locationId)
+          """)
+                .param("name", payload.name())
+                .param("registeredDate", payload.registeredDate())
+                .param("locationId", payload.location())
+                .update(keyHolder, "id");
+
+        UUID id = keyHolder.getKeyAs(UUID.class);
+
+        replaceOrganizationsForFacility(id, payload.organizations());
+        replaceFishesForFacility(id, payload.fishes());
+
+        return getById(id);
+    }
+
+    @Transactional
     public void deleteFacility(UUID id) {
         var updated = jdbcClient.sql("""
                         DELETE FROM Facilities
@@ -132,11 +153,16 @@ public class FacilityRepository {
 
         // The Facility_Organizations / Facility_Fishes FKs are ON DELETE CASCADE,
         // so deleting the Facilities row clears the join rows automatically.
-        // No cleanup needed
+        // No cleanup needed.
     }
 
 
     private void replaceOrganizationsForFacility(UUID facilityId, List<UUID> organizationIds) {
+        /*
+         * Deleting from a cross-reference table is a no-op when used to create
+         * cross-references for a new facility, but that since it's cheap,
+         * it's an acceptable trade-off. to be able to keep the same function.
+         */
         jdbcClient.sql("DELETE FROM Facility_Organizations WHERE facility_id = :id")
                 .param("id", facilityId)
                 .update();

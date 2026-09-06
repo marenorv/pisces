@@ -1,7 +1,7 @@
 @use '../../styles/padding' as *;
 @use '../../styles/palette' as palette;
 
-.pisces-facility-container {
+.pisces-facility-list-container {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -9,6 +9,16 @@
   max-width: 60vw;
   height: 100%;
 }
+
+.pisces-facility-list-header {
+  display: flex;
+  flex-direction: row;
+
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 .pisces-facility-list {
   display: flex;
