@@ -6,6 +6,7 @@
   "facilityList.header": "Oppdrettsanlegg",
   "facilityDetails.back": "Tilbake til anlegg",
   "facilityDetails.notFound": "Kunne ikke finne anlegg",
+  "facilityDetails.location": "Plassering av anlegg",
   "facilityDetails.orgList.header": "Oppdrettsorganisasjoner på anlegget",
   "facilityDetails.orgList.noOrgs": "Ingen organisasjoner på anlegget",
   "facilityDetails.fishList.header": "Fiskearter på anlegget",

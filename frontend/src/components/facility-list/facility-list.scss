@@ -32,3 +32,8 @@
   border-radius: $border-radius-default;
   border: 1px solid palette.$primary;
 }
+
+.pisces-facility-card__location-icon {
+  vertical-align: middle;
+  padding-right: $pd-md;
+}

@@ -13,6 +13,7 @@ export default defineConfig({
       '@api': path.resolve(import.meta.dirname, 'src/api/index.ts'),
       '@hooks': path.resolve(import.meta.dirname, 'src/hooks'),
       '@i18n': path.resolve(import.meta.dirname, 'src/i18n/index.ts'),
+      '@constants': path.resolve(import.meta.dirname, 'src/constants'),
     },
   },
   server: {

@@ -1,6 +1,7 @@
 package pisces.dto;
 
 import pisces.domain.Fish;
+import pisces.domain.Location;
 import pisces.domain.Organization;
 
 import java.time.LocalDate;
@@ -12,5 +13,6 @@ public record FacilityDetailsDTO(
         String name,
         LocalDate registeredDate,
         List<Organization> organizations,
-        List<Fish> fishes
+        List<Fish> fishes,
+        Location location
 ) {}

@@ -1,12 +1,11 @@
 import type {FC} from "react";
 import type {Fish} from '@type/facilities'
 import {useIntl} from "react-intl";
+import {LANGUAGE_LABEL} from "@constants/language.ts";
 
 interface FishListProps {
     fishes: Fish[];
 }
-
-const LANGUAGE_LABEL: 'nbLabel' | 'enLabel' = 'nbLabel';
 
 export const FishList: FC<FishListProps> = (props) => {
     const formatMessage = useIntl().formatMessage;

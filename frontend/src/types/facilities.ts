@@ -4,6 +4,7 @@ export interface Facility {
     registeredDate: string;
     organizations: Organization[]
     fishes: Fish[]
+    location: Location
 }
 
 export interface Organization {
@@ -12,6 +13,12 @@ export interface Organization {
 }
 
 export interface Fish {
+    id: string;
+    nbLabel: string;
+    enLabel: string;
+}
+
+export interface Location {
     id: string;
     nbLabel: string;
     enLabel: string;

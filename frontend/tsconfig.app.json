@@ -7,7 +7,8 @@
       "@type/*": ["./src/types/*"],
       "@api": ["./src/api/index.ts"],
       "@hooks/*": ["./src/hooks/*"],
-      "@i18n": ["./src/i18n/index.ts"]
+      "@i18n": ["./src/i18n/index.ts"],
+      "@constants/*": ["./src/constants/*"]
     },
     "target": "es2023",
     "lib": ["ES2023", "DOM"],

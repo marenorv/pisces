@@ -11,13 +11,31 @@ const parseDate = (candidate: string): Date => {
     return new Date(candidate);
 }
 
+const LOCATION_ICONS: Record<string, string> = {
+    sea: 'sailing',
+    land: 'landscape',
+};
+
+const locationIcon = (enLabel: string): string => LOCATION_ICONS[enLabel.toLowerCase()] ?? 'place';
+
 export const FacilityCard: FC<FacilityCardProps> = (props) => {
     const intl = useIntl();
     const date = parseDate(props.facility.registeredDate);
+    const location = props.facility.location;
 
     return (
         <Link className='pisces-facility-card' to={`/facilities/${props.facility.id}`}>
-            <span>{props.facility.name}</span>
+            <div>
+                <span
+                    className='material-icons pisces-facility-card__location-icon'
+                    role='img'
+                    aria-label={location.nbLabel}
+                    title={location.nbLabel}
+                >
+                    {locationIcon(location.enLabel)}
+                </span>
+                <span>{props.facility.name}</span>
+            </div>
             <span>{intl.formatDate(date)}</span>
         </Link>
     );

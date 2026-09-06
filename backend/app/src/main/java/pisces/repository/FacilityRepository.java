@@ -3,10 +3,13 @@ package pisces.repository;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import pisces.domain.Fish;
+import pisces.domain.Location;
 import pisces.domain.Organization;
 import pisces.dto.FacilityDetailsDTO;
 import pisces.dto.FacilityOverviewDTO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -22,33 +25,42 @@ public class FacilityRepository {
 
     public List<FacilityOverviewDTO> getAll() {
         return jdbcClient.sql("""
-                        SELECT id, name, registered_date
-                        FROM Facilities
+                        SELECT f.id, f.name, f.registered_date,
+                               l.id AS location_id, l.nb_label AS location_nb_label, l.en_label AS location_en_label
+                        FROM Facilities f
+                        JOIN Locations l ON l.id = f.location_id
                         """)
                 .query((rs, rowNum) -> new FacilityOverviewDTO(
                         rs.getObject("id", UUID.class),
                         rs.getString("name"),
-                        rs.getDate("registered_date").toLocalDate()
+                        rs.getDate("registered_date").toLocalDate(),
+                        mapLocation(rs)
                 ))
                 .list();
     }
 
     public FacilityDetailsDTO getById(UUID id) {
-        record FacilityRow(String name, LocalDate registeredDate) {}
+        record FacilityRow(String name, LocalDate registeredDate, Location location) {}
 
         FacilityRow facility = jdbcClient.sql("""
-                        SELECT name, registered_date
-                        FROM Facilities
-                        WHERE id = :id
+                        SELECT f.name, f.registered_date,
+                               l.id AS location_id, l.nb_label AS location_nb_label, l.en_label AS location_en_label
+                        FROM Facilities f
+                        JOIN Locations l ON l.id = f.location_id
+                        WHERE f.id = :id
                         """)
                 .param("id", id)
-                .query((rs, rowNum) -> new FacilityRow(rs.getString("name"), rs.getDate("registered_date").toLocalDate()))
+                .query((rs, rowNum) -> new FacilityRow(
+                        rs.getString("name"),
+                        rs.getDate("registered_date").toLocalDate(),
+                        mapLocation(rs)
+                ))
                 .single();
 
         var organizations = getOrganizationsForFacility(id);
         var fishes = getFishesForFacility(id);
 
-        return new FacilityDetailsDTO(id, facility.name(), facility.registeredDate(), organizations, fishes);
+        return new FacilityDetailsDTO(id, facility.name(), facility.registeredDate(), organizations, fishes, facility.location());
     }
 
     private List<Organization> getOrganizationsForFacility(UUID id) {
@@ -73,6 +85,14 @@ public class FacilityRepository {
                 .param("id", id)
                 .query((rs, rowNum) -> new Fish(rs.getObject("id", UUID.class), rs.getString("nb_label"), rs.getString("en_label")))
                 .list();
+    }
+
+    private static Location mapLocation(ResultSet rs) throws SQLException {
+        return new Location(
+                rs.getObject("location_id", UUID.class),
+                rs.getString("location_nb_label"),
+                rs.getString("location_en_label")
+        );
     }
 
 }
