@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.transaction.annotation.Transactional;
 import pisces.domain.Fish;
 import pisces.domain.Organization;
@@ -39,6 +40,9 @@ class FacilityRepositoryIT {
 
     @Autowired
     private FacilityRepository repository;
+
+    @Autowired
+    private JdbcClient jdbcClient;
 
     @Test
     @DisplayName("updateFacility wipes the existing organizations and sets the new ones")
@@ -113,5 +117,34 @@ class FacilityRepositoryIT {
         assertThat(repository.getById(created.id()).fishes())
                 .extracting(Fish::getId)
                 .containsExactlyInAnyOrder(FISH_COD);
+    }
+
+    @Test
+    @DisplayName("deleteFacility relies on ON DELETE CASCADE to clear Facility_Organizations and Facility_Fishes")
+    void deleteFacilityCascadesToJoinTables() {
+        // Marens merder is seeded with join rows in both cross-reference tables.
+        assertThat(countJoinRows("Facility_Organizations", MARENS_MERDER)).isEqualTo(2);
+        assertThat(countJoinRows("Facility_Fishes", MARENS_MERDER)).isEqualTo(3);
+
+        // deleteFacility only issues DELETE FROM Facilities - no manual join cleanup.
+        repository.deleteFacility(MARENS_MERDER);
+
+        assertThat(countFacilityRows(MARENS_MERDER)).isZero();
+        assertThat(countJoinRows("Facility_Organizations", MARENS_MERDER)).isZero();
+        assertThat(countJoinRows("Facility_Fishes", MARENS_MERDER)).isZero();
+    }
+
+    private int countJoinRows(String table, UUID facilityId) {
+        return jdbcClient.sql("SELECT COUNT(*) FROM " + table + " WHERE facility_id = :id")
+                .param("id", facilityId)
+                .query(Integer.class)
+                .single();
+    }
+
+    private int countFacilityRows(UUID facilityId) {
+        return jdbcClient.sql("SELECT COUNT(*) FROM Facilities WHERE id = :id")
+                .param("id", facilityId)
+                .query(Integer.class)
+                .single();
     }
 }
