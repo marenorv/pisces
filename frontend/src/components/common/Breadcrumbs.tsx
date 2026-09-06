@@ -21,13 +21,10 @@ export const BreadCrumbs: FC = () => {
         enabled: showFacilityName,
     });
 
-    if (segments.length <= 1) {
-        return null;
-    }
-
     return (
         <nav className='pisces-breadcrumbs' aria-label='Breadcrumb'>
             <Link className='pisces-back-link' to='/facilities'>
+                <span className='material-icons pisces-breadcrumbs__home-icon' aria-hidden='true'>home</span>
                 {formatMessage({id: 'facilityDetails.back'})}
             </Link>
 

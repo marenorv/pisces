@@ -15,7 +15,7 @@
 }
 
 .pisces-back-link {
-  color: palette.$secondary;
+  color: palette.$primary;
   text-decoration: none;
   display: inline-block;
   padding-top: padding.$pd-md;
@@ -23,6 +23,12 @@
   &:hover, &:focus-visible {
     text-decoration: underline;
   }
+}
+
+.pisces-breadcrumbs__home-icon {
+  font-size: 1.125em;
+  vertical-align: -0.15em;
+  margin-right: padding.$pd-sm;
 }
 
 summary.pisces-organizations {
