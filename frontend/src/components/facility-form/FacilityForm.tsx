@@ -4,6 +4,7 @@ import type {FieldError, SubmitHandler} from "react-hook-form";
 import {useForm} from "react-hook-form";
 import {useIntl} from "react-intl";
 import {useNavigate, useParams} from "react-router-dom";
+import {useQueryClient} from "@tanstack/react-query";
 import * as api from "@api";
 import {Loader} from "@components/common/Loader.tsx";
 import {EditError} from "@components/common/EditErrors.tsx";
@@ -27,6 +28,7 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
     const formatMessage = useIntl().formatMessage;
     const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
     const [submitFailed, setSubmitFailed] = useState(false);
 
     const {
@@ -76,7 +78,9 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
         if (!id) throw new Error("Can't submit without an ID");
         try {
             setSubmitFailed(false);
-            api.updateFacility(id, values);
+            await api.updateFacility(id, values);
+            // A facility was updated, and the old data that was loaded and cached must be force-updated
+            await queryClient.invalidateQueries({queryKey: ["facility", id]});
             navigate(`/facilities/${id}`);
         } catch {
             setSubmitFailed(true);
