@@ -1,6 +1,6 @@
-import type {FC} from "react";
+import type {FC, ReactNode} from "react";
 import {useState} from "react";
-import type {FieldError} from "react-hook-form";
+import type {FieldError, SubmitHandler} from "react-hook-form";
 import {useForm} from "react-hook-form";
 import {useIntl} from "react-intl";
 import {useNavigate, useParams} from "react-router-dom";
@@ -16,10 +16,11 @@ import {ExistingFacilityActions} from "@components/facility-form/modes/edit/Exis
 import {NewFacilityActions} from "@components/facility-form/modes/add/NewFacilityActions.tsx";
 
 interface FacilityFormProps {
-    mode: 'new' | 'existing';
+    mode: 'new' | 'existing' | 'read-only';
     data: Facility | null;
     isLoading: boolean;
     isError: boolean;
+    headerComponent: ReactNode;
 }
 
 export const FacilityForm: FC<FacilityFormProps> = (props) => {
@@ -82,15 +83,39 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
         }
     };
 
-    const headerLabel = mode === 'new'
-        ? formatMessage({id: 'facilityDetails.new.header'})
-        : formatMessage({id: 'facilityDetails.edit.header'}, {name: <i>{facility?.name}</i>})
+    const getActions = () => {
+        switch (mode) {
+            case 'new':
+                return <NewFacilityActions/>;
+            case 'existing':
+                return <ExistingFacilityActions isDirty={isDirty}/>
+            case 'read-only':
+            default:
+                return null
+        }
+    }
+
+    const submitByMode = (): SubmitHandler<FacilityFormValues> => {
+        switch (mode) {
+            case 'new':
+                return submitNew
+            case 'existing':
+                return submitExisting
+            // These won't occur because there is not submit button
+            case 'read-only':
+            default:
+                return () => {
+                }
+        }
+    }
+
+    const isFieldsLocked = mode === 'read-only';
 
     return <>
-        <h2>{headerLabel}</h2>
+        {props.headerComponent}
         <form
-            className='pisces-facility-edit'
-            onSubmit={handleSubmit(mode === 'new' ? submitNew : submitExisting)}
+            className='pisces-facility-container'
+            onSubmit={handleSubmit(submitByMode())}
         >
             <div className={'pisces-facility-edit-fields'}>
                 {/* Name */}
@@ -98,7 +123,8 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
                     <h3 className={'pisces-facility-edit-header'}>
                         <label htmlFor='facility-name'>{formatMessage({id: 'facilityDetails.name'})}</label>
                     </h3>
-                    <input id='facility-name' type='text' {...register('name', {required: 'Navn må være satt'})}/>
+                    <input disabled={isFieldsLocked} id='facility-name'
+                           type='text' {...register('name', {required: 'Navn må være satt'})}/>
                     <EditError error={errors.name}/>
                 </div>
 
@@ -107,7 +133,7 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
                     <h3 className={'pisces-facility-edit-header'}>
                         <label htmlFor='facility-name'>{formatMessage({id: 'facilityDetails.location'})}</label>
                     </h3>
-                    <select id='facility-name' {...register('location', {required: 'Plassering må være satt'})}>
+                    <select disabled={isFieldsLocked} id='facility-name' {...register('location', {required: 'Plassering må være satt'})}>
                         {locationsOpts.map((opt) => <option value={opt.value}>{opt.label}</option>)}
                     </select>
                     <EditError error={errors.location}/>
@@ -120,6 +146,7 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
                             htmlFor='facility-registered-date'>{formatMessage({id: 'facilityDetails.registeredDate'})}</label>
                     </h3>
                     <input
+                        disabled={isFieldsLocked}
                         id='facility-registered-date'
                         type='date'
                         max={today}
@@ -140,6 +167,7 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
                         // mode "onBlur" never validates a checkbox group on its own — revalidate on each toggle.
                         onChange: () => trigger('fishes'),
                     })}
+                    disabled={isFieldsLocked}
                     error={errors.fishes as FieldError | undefined}
                 />
 
@@ -152,12 +180,11 @@ export const FacilityForm: FC<FacilityFormProps> = (props) => {
                         // mode "onBlur" never validates a checkbox group on its own — revalidate on each toggle.
                         onChange: () => trigger('organizations'),
                     })}
+                    disabled={isFieldsLocked}
                     error={errors.organizations as FieldError | undefined}
                 />
             </div>
-            {mode === 'new'
-                ? <NewFacilityActions/>
-                : <ExistingFacilityActions isDirty={isDirty}/>}
+            {getActions()}
         </form>
         {submitFailed && (
             <p className='pisces-facility-edit-submit-error' role='alert'>

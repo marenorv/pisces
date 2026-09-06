@@ -1,5 +1,5 @@
 {
-  "app.name": "Pisces",
+  "app.name": "Pisces - demo",
   "app.name.ipa": "[ˈpɪs.keːs]",
   "app.header.subheader": "Demo",
   "sidebar.header": "Sidebar",
@@ -16,6 +16,7 @@
   "facilityDetails.fishList.header": "Fiskearter på anlegget",
   "facilityDetails.fishList.noFish": "Ingen fiskearter på anlegget",
   "facilityDetails.edit.header": "Endre anlegg {name}",
+  "facilityDetails.readOnly.header": "Anlegg {name}",
   "facilityDetails.new.header": "Legg til nytt anlegg",
   "facilityDetails.edit": "Endre anlegg",
   "facilityDetails.delete": "Slett anlegg",

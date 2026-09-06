@@ -1,17 +1,11 @@
 @use '../../styles/palette' as palette;
 @use '../../styles/padding' as padding;
 
-.pisces-facility-details {
+.pisces-details-header {
   display: flex;
-  flex-direction: column;
-  max-width: 60vw;
-
-  .pisces-details-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .pisces-back-link {

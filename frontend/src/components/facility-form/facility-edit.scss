@@ -1,10 +1,10 @@
 @use '../../styles/palette' as palette;
 @use '../../styles/padding' as padding;
 
-.pisces-facility-edit {
+.pisces-facility-container {
   display: flex;
   flex-direction: column;
-  max-width: 50vw;
+  max-width: 60vw;
 }
 
 .pisces-facility-edit-fields {
@@ -64,6 +64,14 @@
   border-radius: 3px;
 }
 
-.pisces-edit-options-item-error {
-  border: 1px solid red;
+.pisces-edit-options-item {
+  border: 1px solid grey;
+  border-radius: 3px;
+
+  &--error {
+    border: 1px solid red;
+  }
+  &--disabled {
+    border: 1px solid rgba(118, 118, 118, 0.3);
+  }
 }

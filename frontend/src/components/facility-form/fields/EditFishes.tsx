@@ -3,14 +3,16 @@ import type {FieldError, UseFormRegisterReturn} from "react-hook-form";
 import {useIntl} from "react-intl";
 import {EditError} from "@components/common/EditErrors.tsx";
 import type {SelectOptions} from "@type/options.ts";
+import {EditFieldSet} from "@components/facility-form/fields/EditFieldSet.tsx";
 
 interface EditFishesProps {
     fishes: SelectOptions[];
     registration: UseFormRegisterReturn;
     error?: FieldError;
+    disabled: boolean
 }
 
-export const EditFishes: FC<EditFishesProps> = ({fishes, registration, error}) => {
+export const EditFishes: FC<EditFishesProps> = ({fishes, registration, error, disabled}) => {
     const formatMessage = useIntl().formatMessage;
 
     return (
@@ -18,18 +20,7 @@ export const EditFishes: FC<EditFishesProps> = ({fishes, registration, error}) =
             <h3 className={'pisces-facility-edit-header'}>
                 <label htmlFor='facility-registered-date'>{formatMessage({id: 'facilityDetails.fishes'})}</label>
             </h3>
-            <fieldset className={`pisces-edit-options-item${error ? '-error' : ''}`}>
-                <ul className='pisces-edit-options-list'>
-                    {fishes.map((fish) => (
-                        <li key={fish.value}>
-                            <label>
-                                <input type='checkbox' value={fish.value} {...registration}/>
-                                {fish.label}
-                            </label>
-                        </li>
-                    ))}
-                </ul>
-            </fieldset>
+            <EditFieldSet disabled={disabled} error={error} options={fishes} registration={registration}/>
             <EditError error={error}/>
         </>
     );
