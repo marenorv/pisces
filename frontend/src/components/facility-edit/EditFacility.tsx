@@ -13,7 +13,7 @@ import {EditOrganizations} from "@components/facility-edit/EditOrganizations.tsx
 import type {FacilityFormValues} from "@type/form.ts";
 import {useOptions} from "@hooks/useOptions.ts";
 
-export const FacilityEdit: FC = () => {
+export const EditFacility: FC = () => {
     const formatMessage = useIntl().formatMessage;
     const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
