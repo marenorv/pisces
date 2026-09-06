@@ -7,8 +7,7 @@ The project is a mono repo with two top-level folders: `frontend/` and `backend/
 
 ```
 backend/
-  api/     — DTOs only (no Spring dependency); shared contract between backend and frontend types
-  app/     — Spring Boot application: controllers, services, repositories, JPA entities, Flyway migrations
+  app/     — Spring Boot application: controllers, services, repositories, JPA entities, DTOs, Flyway migrations
 ```
 
 - **Language:** Java 26
@@ -17,10 +16,9 @@ backend/
 - **Schema migrations:** Flyway
 - **Build tool:** Maven
 
-The `api` module contains plain Java data classes with no runtime dependencies, so they can be shared or reused independently of the application runtime.
-
 The `app` module contains the full Spring Boot application:
 - `domain/` — JPA entities
+- `dto/` — request/response data classes for the REST API
 - `repository/` — Spring Data JPA repositories
 - `service/` — business logic
 - `controller/` — REST endpoints
@@ -66,9 +64,7 @@ Flyway runs migrations automatically on application startup.
 - JDK 26
 - Node.js 18+
 
-### 1. Start the database
-
-### 2. Start the backend
+### 1. Start the backend
 
 ```bash
 cd backend
@@ -77,7 +73,12 @@ mvn install -DskipTests && mvn spring-boot:run -pl app
 
 Flyway runs the database migrations automatically on startup. The API is available at `http://localhost:8080`.
 
-### 3. Start the frontend
+#### 1.5 Run tests
+
+- Single module: `mvn -pl app test`
+- Single test class: `mvn -pl app test -Dtest=FacilityRepositoryIT`
+
+### 2. Start the frontend
 
 ```bash
 cd frontend
@@ -85,4 +86,14 @@ npm install
 npm run dev
 ```
 
-The app is available at `http://localhost:5179`.
+The app is available on `http://localhost:5179`.
+
+
+# Ting jeg skulle ønske jeg fikk utvidet med
+- Websocket og SSE for å støtte flere saksbehandlere på samme sak samtidig
+- Spring Security Roles med `@EnableMethodSecurity` og `@PreAuthorize`
+- Flere og mer dekkende tester
+- Nynorsk språkstøtte
+- Pagination hvis veldig mange anlegg
+- React 19: use/useActionState for å eliminere hele TanStack https://dev.to/rakhee/can-react-v19-replace-react-querytanstack-5gmh
+- Verktøy-fane for å kunne legge til nye anlegg og fisketyper
