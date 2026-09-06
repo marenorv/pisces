@@ -131,11 +131,11 @@ export const FacilityEdit: FC = () => {
             />
         </div>
 
-        <div className='pisces-facility-edit-actions'>
-            <button type='button' onClick={() => navigate(`/facilities/${facility.id}`)}>
+        <div className='pisces-actions__buttons'>
+            <button className='action-button--cancel' type='button' onClick={() => navigate(`/facilities/${facility.id}`)}>
                 {formatMessage({id: 'facilityEdit.cancel'})}
             </button>
-            <button type='submit' disabled={!isDirty}>
+            <button className='action-button--save' type='submit' disabled={!isDirty}>
                 {formatMessage({id: 'facilityEdit.save'})}
             </button>
         </div>

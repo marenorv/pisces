@@ -28,4 +28,8 @@ public class FacilityService {
     public FacilityDetailsDTO updateFacility(FacilityUpdateDTO payload) {
         return facilityRepository.updateFacility(payload);
     }
+
+    public void deleteFacility(UUID id) {
+        facilityRepository.deleteFacility(id);
+    }
 }

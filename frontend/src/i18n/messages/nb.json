@@ -16,6 +16,13 @@
   "facilityDetails.fishList.header": "Fiskearter på anlegget",
   "facilityDetails.fishList.noFish": "Ingen fiskearter på anlegget",
   "facilityDetails.edit": "Endre anlegg",
+  "facilityDetails.delete": "Slett anlegg",
+
+  "facilityDelete.header": "Slett anlegg",
+  "facilityDelete.button.delete": "Slett",
+  "facilityDelete.button.cancel": "Avbryt",
+  "facilityDelete.confirm": "Er du sikker på at du vil slette anlegget \"{name}\"?",
+  "facilityDelete.failed": "Kunne ikke slette anlegget. Prøv igjen.",
 
   "facilityEdit.save": "Lagre",
   "facilityEdit.cancel": "Avbryt",

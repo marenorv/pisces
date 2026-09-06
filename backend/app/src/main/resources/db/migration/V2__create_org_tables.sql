@@ -9,7 +9,7 @@ INSERT INTO Organizations (id, name) VALUES ('62af5c96-3eb2-4aa3-81e1-ee9d014ad4
 
 CREATE TABLE Facility_Organizations (
     id UUID NOT NULL DEFAULT RANDOM_UUID() PRIMARY KEY,
-    facility_id UUID NOT NULL REFERENCES Facilities(id),
+    facility_id UUID NOT NULL REFERENCES Facilities(id) ON DELETE CASCADE,
     organization_id UUID NOT NULL REFERENCES Organizations(id)
 );
 

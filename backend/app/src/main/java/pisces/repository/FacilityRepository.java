@@ -117,6 +117,25 @@ public class FacilityRepository {
         return getById(id);
     }
 
+    @Transactional
+    public void deleteFacility(UUID id) {
+        var updated = jdbcClient.sql("""
+                        DELETE FROM Facilities
+                        WHERE id = :id
+                        """)
+                .param("id", id)
+                .update();
+
+        if (updated == 0) {
+            throw new NoSuchElementException("No facility with id " + id);
+        }
+
+        // The Facility_Organizations / Facility_Fishes FKs are ON DELETE CASCADE,
+        // so deleting the Facilities row clears the join rows automatically.
+        // No cleanup needed
+    }
+
+
     private void replaceOrganizationsForFacility(UUID facilityId, List<UUID> organizationIds) {
         jdbcClient.sql("DELETE FROM Facility_Organizations WHERE facility_id = :id")
                 .param("id", facilityId)

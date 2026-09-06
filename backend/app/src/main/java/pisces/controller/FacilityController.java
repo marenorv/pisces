@@ -1,5 +1,6 @@
 package pisces.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pisces.dto.FacilityDetailsDTO;
 import pisces.dto.FacilityOverviewDTO;
@@ -23,13 +24,19 @@ public class FacilityController {
         return facilityService.getAll();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public FacilityDetailsDTO getById(@PathVariable UUID id) {
         return facilityService.getById(id);
     }
 
-    @PutMapping("/id/{id}/update")
+    @PutMapping("/{id}/update")
     public FacilityDetailsDTO updateFacility(@RequestBody FacilityUpdateDTO payload) {
         return facilityService.updateFacility(payload);
+    }
+
+    @DeleteMapping("/{id}/delete")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFacility(@PathVariable UUID id) {
+        facilityService.deleteFacility(id);
     }
 }

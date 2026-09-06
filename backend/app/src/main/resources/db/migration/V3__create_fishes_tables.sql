@@ -11,7 +11,7 @@ INSERT INTO Fishes (id, nb_label, en_label) VALUES ('7c39419c-056b-4515-b15f-3cd
 
 CREATE TABLE Facility_Fishes (
     id UUID NOT NULL DEFAULT RANDOM_UUID() PRIMARY KEY,
-    facility_id UUID NOT NULL REFERENCES Facilities(id),
+    facility_id UUID NOT NULL REFERENCES Facilities(id) ON DELETE CASCADE,
     fishes_id UUID NOT NULL REFERENCES Fishes(id)
 );
 

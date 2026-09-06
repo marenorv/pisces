@@ -30,3 +30,50 @@ summary.pisces-organizations {
     text-decoration: underline;
   }
 }
+
+.pisces-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: padding.$pd-lg;
+  background: rgba(palette.$primary, 0.5);
+}
+
+.pisces-modal {
+  max-width: 32rem;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: padding.$pd-xl;
+  border-radius: padding.$border-radius-default;
+  background: #fff;
+}
+
+.pisces-modal-error {
+  margin: 0 0 padding.$mg-md 0;
+  color: red;
+}
+
+.pisces-modal__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.pisces-actions__buttons {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: end;
+
+  button:first-child {
+    margin-right: padding.$mg-md;
+  }
+}
